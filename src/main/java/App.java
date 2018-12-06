@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.Arrays;
+import java.util.Random;
 
 
 /*
@@ -22,32 +23,25 @@ public class App {
         getJsonFile();
     }
 
-//    public static void JSONToArrayList(Authors arrayInput){
-//        Authors ArrayList<String> jsonArray = new Gson().fromJson(arrayInput.toString(),ArrayList.class);
-//    }
-
     public static void getJsonFile(){
+        // create a path for our json file
         Path path = Paths.get("assets/recentquotes.json");
-
+        int storedRandom = 0;
+        storedRandom = randomGenerator();
+        // using BufferedReader to read path/file
         try(BufferedReader reader = Files.newBufferedReader(path)){
             Gson gson = new Gson();
-
             Authors[] jsonAuthor = gson.fromJson(reader, Authors[].class);
-
             System.out.println(Arrays.toString(jsonAuthor));
-
+            System.out.println(jsonAuthor[storedRandom].author);
+            System.out.println(jsonAuthor[storedRandom].text);
         }catch(IOException e){
 
         }
-
-
-
-
-//        List<Authors> mcList = Arrays.asList(jsonAuthor);
-
-//        List<Authors> mcList = new ArrayList<>(Arrays.asList(jsonAuthor));
-
-
     }
 
+    public static int randomGenerator(){
+        Random randomNum = new Random();
+        return randomNum.nextInt(10);
+    }
 }
