@@ -18,7 +18,7 @@ public class Authors {
     }
 
     public String toString(){
-       return this.author + this.likes + this.text;
+       return "author " + this.author + " quote " + this.text;
     }
 
 
