@@ -17,6 +17,11 @@ public class Authors {
 
     }
 
+    public Authors(String name, String quotes){
+        this.author = name;
+        this.text = quotes;
+    }
+
     public String toString(){
        return "author " + this.author + " quote " + this.text;
     }
