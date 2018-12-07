@@ -1,12 +1,9 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import javax.naming.Context;
+import java.io.*;
+import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,10 +20,17 @@ public class App {
     public static void main(String[] args) {
 
 
+        /**
+         * still working on writing into the json file
+         */
+//        Path path = Paths.get("assets/recentquotes.json");
+//        Gson gson = new Gson();
+//        Authors author = new Authors("name",  "quotes" );
+//        gson.toJson(author, new FileWriter(path, true));
 
 
-
-//        getJsonFile();
+        getTrumpQuotes();
+        getJsonFile();
     }
 
     public static void getTrumpQuotes(){
@@ -37,16 +41,18 @@ public class App {
             con.setRequestMethod("GET");
 
             System.out.println("about to send request");
+//            JsonParser jp = new JsonParser();
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             System.out.println("request came back");
             String inputLine;
 
             StringBuffer content = new StringBuffer();
             while ((inputLine = in.readLine()) != null){
-                System.out.println(inputLine);
-                content.append(inputLine);
+
+                content.append(inputLine +"\n");
 
             }
+            System.out.println(content);
             in.close();
         }catch(MalformedURLException e){
             System.out.println("FIX YO URL" + e);
@@ -57,11 +63,14 @@ public class App {
         }
     }
 
+
+
     public static void getJsonFile(){
         // create a path for our json file
         Path path = Paths.get("assets/recentquotes.json");
         int storedRandom = 0;
         storedRandom = randomGenerator();
+
         // using BufferedReader to read path/file
         try(BufferedReader reader = Files.newBufferedReader(path)){
             Gson gson = new Gson();
