@@ -20,16 +20,9 @@ public class App {
     public static void main(String[] args) {
 
 
-        /**
-         * still working on writing into the json file
-         */
-//        Path path = Paths.get("assets/recentquotes.json");
-//        Gson gson = new Gson();
-//        Authors author = new Authors("name",  "quotes" );
-//        gson.toJson(author, new FileWriter(path, true));
-
         System.out.println(getTrumpQuotes());
-//        getJsonFile();
+
+
     }
 
     public static String getTrumpQuotes(){
@@ -63,8 +56,11 @@ public class App {
             getJsonFile();
             System.out.println("SEEMS LIKE SOMETHING DIDN'T COME BECK" + e);
         }catch (IOException e){
-            System.out.println("Check your connection? In the meantime, the exception: " + e + "\nIn the meantime, here's another quote ");
-            getJsonFile();
+            System.out.println("Check your connection? exception: " + e + "\nIn the meantime, here's another quote ");
+            int storedRandom = 0;
+            storedRandom = randomGenerator();
+            Authors[] quotes = getJsonFile();
+            System.out.println(quotes[storedRandom].toString() + " Index Number: " + storedRandom);
 
         }
         return null;
@@ -117,7 +113,7 @@ public class App {
         Gson gson = new Gson();
         String json = (gson.toJson(newQuote));
         return writeToJson(json);
-        
+
     }
 
 
