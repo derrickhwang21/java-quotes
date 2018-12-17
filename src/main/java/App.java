@@ -19,7 +19,6 @@ public class App {
 
     public static void main(String[] args) {
 
-
         System.out.println(getTrumpQuotes());
 
 
@@ -53,7 +52,7 @@ public class App {
         }catch(MalformedURLException e){
             System.out.println("FIX YO URL" + e);
         }catch (ProtocolException e){
-            getJsonFile();
+
             System.out.println("SEEMS LIKE SOMETHING DIDN'T COME BECK" + e);
         }catch (IOException e){
             System.out.println("Check your connection? exception: " + e + "\nIn the meantime, here's another quote ");
@@ -67,12 +66,9 @@ public class App {
     }
 
 
-
     public static Authors[] getJsonFile(){
         // create a path for our json file
         Path path = Paths.get("assets/recentquotes.json");
-        int storedRandom = 0;
-        storedRandom = randomGenerator();
 
         // using BufferedReader to read path/file
         try(BufferedReader reader = Files.newBufferedReader(path)){
@@ -92,12 +88,12 @@ public class App {
         return randomNum.nextInt(10);
     }
 
-    public static boolean addToJson(Authors quote) {
+    public static String addToJson(Authors quote) {
 
         Authors[] quotes = getJsonFile();
         for (Authors inputQuote : quotes){
             if (inputQuote.text.contains(quote.text)){
-                return false;
+                return null;
             }
         }
 
@@ -117,13 +113,14 @@ public class App {
     }
 
 
-    public static boolean writeToJson(String json){
+    public static String writeToJson(String json){
         try (FileWriter file = new FileWriter("./assets/recentquotes.json")){
             file.write(json);
-            return true;
+
         } catch (IOException e) {
         }
-        return false;
+
+        return null;
     }
 
 }

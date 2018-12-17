@@ -82,7 +82,7 @@ public class AppTest {
         Authors test = new Authors(tags, "Ryan Reynolds", "3", "Lady Gaga");
         App.addToJson(test);
 
-        assertFalse(App.addToJson(test));}
+        assertTrue(App.addToJson(test) == null);}
 
 
 
