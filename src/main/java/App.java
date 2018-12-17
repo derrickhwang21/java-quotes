@@ -29,40 +29,40 @@ public class App {
 //        gson.toJson(author, new FileWriter(path, true));
 
 
-        getTrumpQuotes();
+//        getTrumpQuotes();
         getJsonFile();
     }
 
-    public static void getTrumpQuotes(){
-
-        try{
-            URL url = new URL("https://api.whatdoestrumpthink.com/api/v1/quotes/random");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-
-            System.out.println("about to send request");
-//            JsonParser jp = new JsonParser();
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            System.out.println("request came back");
-            String inputLine;
-
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null){
-
-                content.append(inputLine +"\n");
-
-            }
-            System.out.println(content);
-            in.close();
-        }catch(MalformedURLException e){
-            System.out.println("FIX YO URL" + e);
-        }catch (ProtocolException e){
-            System.out.println("SEEMS LIKE SOMETHING DIDN'T COME BECK" + e);
-        }catch (IOException e){
-            System.out.println("Something came in and didn't come beck, or maybe the other way around " + e);
-        }
-    }
-
+//    public static void getTrumpQuotes(){
+//
+//        try{
+//            URL url = new URL("https://api.whatdoestrumpthink.com/api/v1/quotes/random");
+//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//            con.setRequestMethod("GET");
+//
+//            System.out.println("about to send request");
+////            JsonParser jp = new JsonParser();
+//            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//            System.out.println("request came back");
+//            String inputLine;
+//
+//            StringBuffer content = new StringBuffer();
+//            while ((inputLine = in.readLine()) != null){
+//
+//                content.append(inputLine +"\n");
+//
+//            }
+//            System.out.println(content);
+//            in.close();
+//        }catch(MalformedURLException e){
+//            System.out.println("FIX YO URL" + e);
+//        }catch (ProtocolException e){
+//            System.out.println("SEEMS LIKE SOMETHING DIDN'T COME BECK" + e);
+//        }catch (IOException e){
+//            System.out.println("Something came in and didn't come beck, or maybe the other way around " + e);
+//        }
+//    }
+//
 
 
     public static void getJsonFile(){
@@ -76,8 +76,9 @@ public class App {
             Gson gson = new Gson();
             Authors[] jsonAuthor = gson.fromJson(reader, Authors[].class);
 
-            System.out.println(jsonAuthor[storedRandom].author);
-            System.out.println(jsonAuthor[storedRandom].text);
+            System.out.println(jsonAuthor[storedRandom].toString() + " Index Number: " + storedRandom);
+//            System.out.println(jsonAuthor[storedRandom].text);
+
         }catch(IOException e){
 
         }
