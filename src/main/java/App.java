@@ -50,7 +50,7 @@ public class App {
                 String text = inputLine.substring(11, inputLine.indexOf("nlp_attributes")-3);
                 String[] tags = new String[0];
                 Authors quote = new Authors(tags, "Donald Trump", "0", text);
-
+                addToJson(quote);
                 return quote.toString();
 
             }
@@ -72,7 +72,7 @@ public class App {
 
 
 
-    public static void getJsonFile(){
+    public static Authors[] getJsonFile(){
         // create a path for our json file
         Path path = Paths.get("assets/recentquotes.json");
         int storedRandom = 0;
@@ -83,15 +83,51 @@ public class App {
             Gson gson = new Gson();
             Authors[] jsonAuthor = gson.fromJson(reader, Authors[].class);
 
-            System.out.println(jsonAuthor[storedRandom].toString() + " Index Number: " + storedRandom);
+            return jsonAuthor;
 
         }catch(IOException e){
 
         }
+        return null;
     }
 
     public static int randomGenerator(){
         Random randomNum = new Random();
         return randomNum.nextInt(10);
     }
+
+    public static boolean addToJson(Authors quote) {
+
+        Authors[] quotes = getJsonFile();
+        for (Authors inputQuote : quotes){
+            if (inputQuote.text.contains(quote.text)){
+                return false;
+            }
+        }
+
+        Authors[] newQuote = new Authors[quotes.length + 1];
+        for (int i = 0; i < quotes.length + 1; i++) {
+            if (i == quotes.length) {
+                newQuote[i] = quote;
+            } else {
+                newQuote[i] = quotes[i];
+            }
+        }
+
+        Gson gson = new Gson();
+        String json = (gson.toJson(newQuote));
+        return writeToJson(json);
+        
+    }
+
+
+    public static boolean writeToJson(String json){
+        try (FileWriter file = new FileWriter("./assets/recentquotes.json")){
+            file.write(json);
+            return true;
+        } catch (IOException e) {
+        }
+        return false;
+    }
+
 }
