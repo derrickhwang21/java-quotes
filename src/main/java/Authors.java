@@ -23,7 +23,7 @@ public class Authors {
     }
 
     public String toString(){
-       return "author " + this.author + " quote " + this.text;
+       return "Author: " + this.author + "\nQuote: " + this.text;
     }
 
 
