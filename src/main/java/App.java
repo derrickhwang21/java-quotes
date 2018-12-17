@@ -28,41 +28,48 @@ public class App {
 //        Authors author = new Authors("name",  "quotes" );
 //        gson.toJson(author, new FileWriter(path, true));
 
-
-//        getTrumpQuotes();
-        getJsonFile();
+        System.out.println(getTrumpQuotes());
+//        getJsonFile();
     }
 
-//    public static void getTrumpQuotes(){
-//
-//        try{
-//            URL url = new URL("https://api.whatdoestrumpthink.com/api/v1/quotes/random");
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//            con.setRequestMethod("GET");
-//
-//            System.out.println("about to send request");
-////            JsonParser jp = new JsonParser();
-//            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//            System.out.println("request came back");
-//            String inputLine;
-//
-//            StringBuffer content = new StringBuffer();
-//            while ((inputLine = in.readLine()) != null){
-//
-//                content.append(inputLine +"\n");
-//
-//            }
-//            System.out.println(content);
-//            in.close();
-//        }catch(MalformedURLException e){
-//            System.out.println("FIX YO URL" + e);
-//        }catch (ProtocolException e){
-//            System.out.println("SEEMS LIKE SOMETHING DIDN'T COME BECK" + e);
-//        }catch (IOException e){
-//            System.out.println("Something came in and didn't come beck, or maybe the other way around " + e);
-//        }
-//    }
-//
+    public static String getTrumpQuotes(){
+
+        try{
+            URL url = new URL("https://api.whatdoestrumpthink.com/api/v1/quotes/random");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+
+            String inputLine = in.readLine();
+
+            while (inputLine != null){
+
+                String text = inputLine.substring(11, inputLine.indexOf("nlp_attributes")-3);
+                String[] tags = new String[0];
+                Authors quote = new Authors(tags, "Donald Trump", "0", text);
+
+                return quote.toString();
+
+            }
+            in.close();
+
+
+        }catch(MalformedURLException e){
+            System.out.println("FIX YO URL" + e);
+        }catch (ProtocolException e){
+            getJsonFile();
+            System.out.println("SEEMS LIKE SOMETHING DIDN'T COME BECK" + e);
+        }catch (IOException e){
+            System.out.println("Check your connection? In the meantime, the exception: " + e + "\nIn the meantime, here's another quote ");
+            getJsonFile();
+
+        }
+        return null;
+    }
+
 
 
     public static void getJsonFile(){
@@ -77,7 +84,6 @@ public class App {
             Authors[] jsonAuthor = gson.fromJson(reader, Authors[].class);
 
             System.out.println(jsonAuthor[storedRandom].toString() + " Index Number: " + storedRandom);
-//            System.out.println(jsonAuthor[storedRandom].text);
 
         }catch(IOException e){
 
