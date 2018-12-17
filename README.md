@@ -12,6 +12,7 @@ Chooses one quote each time it is ran.
 
 ## Testing
 Clone the repo and cd into this directory.
+
 In the command line type ./gradlew run. This will show a random quote from the json file.
 
 
