@@ -31,22 +31,58 @@ public class AppTest {
     @Test
     public void testGetJsonFileContainsAuthor(){
 
-      App.getJsonFile();
-      String result = outContent.toString();
+
+        int storedRandom = 0;
+        storedRandom = App.randomGenerator();
+        Authors[] quotes = App.getJsonFile();
+        System.out.println(quotes[storedRandom].toString() + " Index Number: " + storedRandom);
+        String result = outContent.toString();
 
 
         assertTrue(result.contains("Author:"));
     }
 
     @Test
+    public void testGetJsonFileContainsQuote(){
+
+
+        int storedRandom = 0;
+        storedRandom = App.randomGenerator();
+        Authors[] quotes = App.getJsonFile();
+        System.out.println(quotes[storedRandom].toString() + " Index Number: " + storedRandom);
+        String result = outContent.toString();
+
+
+        assertTrue(result.contains("Quote:"));
+    }
+
+    @Test
     public void testGetJsonFileContainsIndex(){
 
-        App.getJsonFile();
+        int storedRandom = 0;
+        storedRandom = App.randomGenerator();
+        Authors[] quotes = App.getJsonFile();
+        System.out.println(quotes[storedRandom].toString() + " Index Number: " + storedRandom);
         String result = outContent.toString();
 
 
         assertTrue(result.contains("Index Number:"));
     }
+
+    @Test
+    public void testGetTrump(){
+
+        assertTrue(App.getTrumpQuotes().contains("Donald Trump"));
+    }
+
+    @Test
+    public void testAddToJson() {
+
+        String[] tags = new String[0];
+        Authors test = new Authors(tags, "Ryan Reynolds", "3", "Lady Gaga");
+        App.addToJson(test);
+
+        assertTrue(App.addToJson(test) == null);}
 
 
 
